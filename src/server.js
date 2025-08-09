@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
+const loggerMiddleware = require("./middleware/logger")
 const articlesRouter = require("./routes/articles")
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(loggerMiddleware)
 app.use("/articles", articlesRouter)
 
 app.get("/", (req, res) => {
