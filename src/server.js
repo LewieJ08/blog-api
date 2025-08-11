@@ -1,13 +1,15 @@
 const express = require("express");
 const app = express();
-const loggerMiddleware = require("./middleware/logger")
-const articlesRouter = require("./routes/articles")
+require('dotenv').config({path: __dirname + "/.env"});
+
+const loggerMiddleware = require("./middleware/logger");
+const articlesRouter = require("./routes/articles");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(loggerMiddleware)
 app.use("/articles", articlesRouter)
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log("Server running on port: 3000")
 });
