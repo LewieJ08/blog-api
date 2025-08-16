@@ -11,7 +11,7 @@ const getAllArticles = async (req, res, next) => {
     } catch(error) {
         next(error);
     }
-}
+};
 
 const createArticle = async (req, res, next) => {
     try {
@@ -27,4 +27,25 @@ const createArticle = async (req, res, next) => {
     }
 };
 
-module.exports = {getAllArticles, createArticle};
+const getArticle = async (req, res, next) => {
+    try {
+        const article = await Article.findById(req.params.id);
+
+        if (!article) {
+            res.status(404).json({
+                success: false,
+                error: `Article with ID: ${req.params.id} does not exist`
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: `Article (ID: ${req.params.id}) successfully fetched`,
+                data: article
+            });
+        }
+    } catch(error) {
+        next(error);
+    }
+};
+
+module.exports = {getAllArticles, createArticle, getArticle};
