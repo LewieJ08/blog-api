@@ -1,11 +1,11 @@
 const express = require("express");
-const createArticle = require("../controllers/articlesController");
+const articlesController = require("../controllers/articlesController");
 
 const router = express.Router();
 
 router.route("/")
-    .get(() => {})
-    .post(createArticle);
+    .get(articlesController.getAllArticles)
+    .post(articlesController.createArticle);
 
 router.route("/:id")
     .get(() => {})
