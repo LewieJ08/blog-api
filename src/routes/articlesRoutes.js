@@ -8,7 +8,7 @@ router.route("/")
     .post(articlesController.createArticle);
 
 router.route("/:id")
-    .get(() => {})
+    .get(articlesController.getArticle)
     .put(() => {})
     .delete (() => {});
 
