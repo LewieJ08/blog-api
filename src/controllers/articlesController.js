@@ -7,7 +7,7 @@ const getAllArticles = async (req, res, next) => {
             success: true,
             message: "Articles Successfully fetched",
             data: articles
-        });
+        }); 
     } catch(error) {
         next(error);
     }
@@ -15,7 +15,20 @@ const getAllArticles = async (req, res, next) => {
 
 const createArticle = async (req, res, next) => {
     try {
-        const article = new Article({...req.body, createdAt: new Date()});
+        let id = 1;
+        let currentIds = [];
+        
+        const articles = await Article.find();
+        
+        for (doc of articles) {
+            currentIds.push(doc.id);
+        }
+
+        while (currentIds.includes(id)) {
+            id++;
+        }
+         
+        const article = new Article({id: id, ...req.body, createdAt: new Date()});
         await article.save();
         res.status(201).json({
             success: true,
