@@ -5,7 +5,7 @@ const getAllArticles = async (req, res, next) => {
         const articles = await Article.find();
         res.status(200).json({
             success: true,
-            message: "Articles Successfully fetched",
+            message: "Articles Successfully fetched.",
             data: articles
         }); 
     } catch(error) {
@@ -32,7 +32,7 @@ const createArticle = async (req, res, next) => {
         await article.save();
         res.status(201).json({
             success: true,
-            message: "Article successfully created",
+            message: "Article successfully created.",
             data: article
         });
     } catch(error) {
@@ -47,12 +47,12 @@ const getArticle = async (req, res, next) => {
         if (!article) {
             res.status(404).json({
                 success: false,
-                error: `Article with ID: ${req.params.id} does not exist`
+                error: `Article with ID: ${req.params.id} does not exist.`
             });
         } else {
             res.status(200).json({
                 success: true,
-                message: `Article (ID: ${req.params.id}) successfully fetched`,
+                message: `Article (ID: ${req.params.id}) successfully fetched.`,
                 data: article
             });
         }
@@ -61,4 +61,16 @@ const getArticle = async (req, res, next) => {
     }
 };
 
-module.exports = {getAllArticles, createArticle, getArticle};
+const deleteArticle = async (req, res, next) => {
+    try {
+        await Article.deleteOne({id: req.params.id});
+        res.status(204).json({
+            success: true,
+            message: `Article (ID: ${req.params.id}) successfully deleted.`
+        });
+    } catch(error) {
+        next(error);
+    }
+}
+
+module.exports = {getAllArticles, createArticle, getArticle, deleteArticle};
