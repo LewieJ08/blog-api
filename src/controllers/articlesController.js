@@ -42,7 +42,7 @@ const createArticle = async (req, res, next) => {
 
 const getArticle = async (req, res, next) => {
     try {
-        const article = await Article.findById(req.params.id);
+        const article = await Article.findOne({id: req.params.id});
 
         if (!article) {
             res.status(404).json({
