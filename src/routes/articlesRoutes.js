@@ -1,5 +1,6 @@
 const express = require("express");
 const articlesController = require("../controllers/articlesController");
+const idCheckerMiddleware = require("../middleware/idChecker")
 
 const router = express.Router();
 
@@ -8,8 +9,8 @@ router.route("/")
     .post(articlesController.createArticle);
 
 router.route("/:id")
-    .get(articlesController.getArticle)
+    .get(idCheckerMiddleware, articlesController.getArticle)
     .put(() => {})
-    .delete (articlesController.deleteArticle);
+    .delete (idCheckerMiddleware, articlesController.deleteArticle);
 
 module.exports = router;
