@@ -65,4 +65,18 @@ const deleteArticle = async (req, res, next) => {
     }
 }
 
-module.exports = {getAllArticles, createArticle, getArticle, deleteArticle};
+const updateArticle = async (req, res, next) => {
+    try {
+        await Article.updateOne({id: req.params.id}, {...req.body, updatedAt: new Date()});
+        const newArticle = await Article.findOne({id: req.params.id}) 
+        res.status(200).json({
+            success: true,
+            message: `Article (ID: ${req.params.id}) successfully updated.`,
+            data: newArticle
+        });
+    } catch(error) {
+        next(error);
+    }
+}
+
+module.exports = {getAllArticles, createArticle, getArticle, deleteArticle, updateArticle};
