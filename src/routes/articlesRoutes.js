@@ -10,7 +10,7 @@ router.route("/")
 
 router.route("/:id")
     .get(idCheckerMiddleware, articlesController.getArticle)
-    .put(() => {})
+    .put(idCheckerMiddleware, articlesController.updateArticle)
     .delete (idCheckerMiddleware, articlesController.deleteArticle);
 
 module.exports = router;
